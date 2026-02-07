@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Entourage - Eurish & James Wedding</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Add favicon -->
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Additional styles for entourage page */
+        .entourage-header {
+            text-align: center;
+            padding: 60px 20px 40px;
+            background: linear-gradient(135deg, var(--beige) 0%, #ffffff 100%);
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--olive);
+            text-decoration: none;
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+
+        .entourage-header h1 {
+            font-size: 3rem;
+            color: var(--gray-green);
+            margin-bottom: 10px;
+        }
+
+        .entourage-header p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .entourage-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .entourage-category {
+            margin-bottom: 80px;
+        }
+
+        .category-title {
+            text-align: center;
+            color: var(--gray-green);
+            font-size: 2.2rem;
+            margin-bottom: 40px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid var(--olive-pale);
+            position: relative;
+        }
+
+            .category-title::after {
+                content: '';
+                position: absolute;
+                bottom: -3px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 100px;
+                height: 3px;
+                background: var(--olive);
+            }
+
+        .entourage-grid-detailed {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .entourage-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border: 1px solid #eee;
+        }
+
+            .entourage-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 15px 40px rgba(137, 141, 11, 0.15);
+            }
+
+        .member-image-container {
+            width: 100%;
+            height: 280px;
+            position: relative;
+            border-bottom: 3px solid var(--olive);
+        }
+
+        /*.member-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }*/
+
+        .member-image {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .image-placeholder {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--olive-light) 0%, var(--olive-pale) 100%);
+            object-fit: contain;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4rem;
+            z-index: 1;
+        }
+
+        /* Show placeholder only if image fails to load or doesn't exist */
+    /*    .member-image:not([src]),
+        .member-image[src=""],
+        .member-image-container:not(:has(img[src])) .image-placeholder,
+        .member-image-container img[style*="display: none"] + .image-placeholder {
+            display: flex;
+        }*/
+
+        .member-info {
+            padding: 25px;
+            text-align: center;
+        }
+
+        .member-role {
+            color: var(--olive);
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .member-name {
+            color: var(--gray-green);
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .member-relation {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+
+        .member-note {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+            margin-top: 15px;
+        }
+
+        .entourage-footer {
+            text-align: center;
+            padding: 40px 20px;
+            background: var(--gray-light);
+            margin-top: 60px;
+        }
+
+        /* Remove arrows from ALL member names on this page */
+        h3.member-name::after,
+        .entourage-card h3::after,
+        .member-info h3::after {
+            content: none !important;
+            display: none !important;
+            visibility: hidden !important;
+            width: 0 !important;
+            height: 0 !important;
+            opacity: 0 !important;
+        }
+
+        @media (max-width: 768px) {
+            .entourage-header h1 {
+                font-size: 2.2rem;
+            }
+
+            .category-title {
+                font-size: 1.8rem;
+            }
+
+            .entourage-grid-detailed {
+                grid-template-columns: 1fr;
+            }
+
+            .member-image-container {
+                height: 240px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header with back button -->
+    <header class="entourage-header">
+        <div class="container">
+            <a href="index.html#entourage" class="back-button">
+                <i class="fas fa-arrow-left"></i> Back to Wedding Site
+            </a>
+            <h1>The Wedding Entourage</h1>
+            <p>Meet the wonderful people who will be standing with us on our special day.</p>
+        </div>
+    </header>
+
+    <div class="entourage-container">
+
+        <!-- Parents Section -->
+        <section class="entourage-category" id="parents">
+
+            <!-- Row 1: Parents of the Bride -->
+            <h2 class="category-title">Parents of the Bride</h2>
+            <div class="entourage-grid-detailed">
+                <!-- Bride's Father -->
+                <div class="entourage-card">
+                    <div class="member-image-container">
+                        <img src="./images/parents-bride-father.jpg" alt="Mr. Eliseo Gutierrez" class="member-image">
+                        <div class="image-placeholder">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <div class="member-role">Father of the Bride</div>
+                        <h3 class="member-name">Mr. Eliseo Gutierrez</h3>
+                        <p class="member-relation">Bride's Father</p>
+                    </div>
+                </div>
+
+                <!-- Bride's Mother -->
+                <div class="entourage-card">
+                    <div class="member-image-container">
+                        <img src="./images/parents-bride-mother.jpg" alt="Mrs. Cecilia Gutierrez" class="member-image">
+                        <div class="image-placeholder">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <div class="member-role">Mother of the Bride</div>
+                        <h3 class="member-name">Mrs. Cecilia Gutierrez</h3>
+                        <p class="member-relation">Bride's Mother</p>
+                    </div>
+                </div>
+            </div> <!-- End of Bride's Parents Row -->
+            <!-- Row 2: Parents of the Groom -->
+            <h2 class="category-title" style="margin-top: 3rem;">Parents of the Groom</h2>
+            <div class="entourage-grid-detailed">
+                <!-- Groom's Father -->
+                <div class="entourage-card">
+                    <div class="member-image-container">
+                        <div class="image-placeholder">
+                            <!--<img src="./images/parents-groom-father.jpg" alt="Mr. Jim Castromayor" class="member-image">-->
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <div class="member-role">Father of the Groom</div>
+                        <h3 class="member-name">Mr. Jim Castromayor</h3>
+                        <p class="member-relation">Groom's Father</p>
+                    </div>
+                </div>
+
+                <!-- Groom's Mother -->
+                <div class="entourage-card">
+                    <div class="member-image-container">
+                        <div class="image-placeholder">
+                            <!--<img src="./images/parents-groom-mother.jpg" alt="Mrs. Rhodora Castromayor" class="member-image">-->
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <div class="member-role">Mother of the Groom</div>
+                        <h3 class="member-name">Mrs. Rhodora Castromayor</h3>
+                        <p class="member-relation">Groom's Mother</p>
+                    </div>
+                </div>
+            </div> <!-- End of Groom's Parents Row -->
+
+        </section>
+
+        <!-- Wedding Party Section -->
+        <section class="entourage-category" id="wedding-party">
+            <h2 class="category-title">Wedding Party</h2>
+            <div class="entourage-grid-detailed">
+                <!-- Best Man -->
+                <div class="entourage-card">
+                    <div class="member-image-container">
+                        <img src="./images/best-man-jim.jpg" alt="Jim II Castromayor" class="member-image">
+                        <div class="image-placeholder">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <div class="member-role">Best Man</div>
+                        <h3 class="member-name">Jim II Castromayor</h3>
+                        <p class="member-relation">Groom's Brother</p>
+                    </div>
+                </div>
+
+                <!-- Maid of Honor -->
+                <div class="entourage-card">
+                    <div class="member-image-container">
+                        <img src="./images/maid-of-honor-joan.jpg" alt="Joan Ayr Parado" class="member-image">
+                        <div class="image-placeholder">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <div class="member-role">Maid of Honor</div>
+                        <h3 class="member-name">Joan Ayr Parado</h3>
+                        <p class="member-relation">Bride's Sister</p>
+                    </div>
+                </div>
+
+                <!-- Best Man -->
+                <div class="entourage-card">
+                    <div class="member-image-container">
+                        <img src="./images/best-man-alvin.jpg" alt="Alvin Kevin Glorioso" class="member-image">
+                        <div class="image-placeholder">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <div class="member-role">Best Man</div>
+                        <h3 class="member-name">Alvin Kevin Glorioso</h3>
+                        <p class="member-relation">Groom's Friend</p>
+                    </div>
+                </div>
+
+                <!-- Matron of Honor -->
+                <div class="entourage-card">
+                    <div class="member-image-container">
+                        <img src="./images/matron-of-honor-cyrill.jpg" alt="Cyrill Elyssa Medina" class="member-image">
+                        <div class="image-placeholder">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <div class="member-role">Matron of Honor</div>
+                        <h3 class="member-name">Cyrill Elyssa Medina</h3>
+                        <p class="member-relation">Bride's Friend</p>
+                    </div>
+                </div>
+
+                <!-- Grooms Man -->
+                <div class="entourage-card">
+                    <div class="member-image-container">
+                        <img src="./images/groomsman-anthony.jpg" alt="Anthony Glorioso" class="member-image">
+                        <div class="image-placeholder">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <div class="member-role">Grooms Man</div>
+                        <h3 class="member-name">Anthony Glorioso</h3>
+                        <p class="member-relation">Groom's Relative</p>
+                    </div>
+                </div>
+
+                <!-- Bridesmaid -->
+                <div class="entourage-card">
+                    <div class="member-image-container">
+                        <img src="./images/bridesmaid-jocelyn.jpg" alt="Jocelyn Resubal" class="member-image">
+                        <div class="image-placeholder">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <div class="member-role">Bridesmaid</div>
+                        <h3 class="member-name">Jocelyn Resubal</h3>
+                        <p class="member-relation">Bride's Friend</p>
+                    </div>
+                </div>
+
+                <!-- Candle -->
+                <div class="entourage-card">
+                    <div class="member-image-container">
+                        <img src="./images/candle-erjohn.jpg" alt="Erjohn Cyruss Gutierrez" class="member-image">
+                        <div class="image-placeholder">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <div class="member-role">Candle Bearer</div>
+                        <h3 class="member-name">Erjohn Cyruss Gutierrez</h3>
+                        <p class="member-relation">Bride's Brother</p>
+                    </div>
+                </div>
+
+                <div class="entourage-card">
+                    <div class="member-image-container">
+                        <img src="./images/candle-ciela.jpg" alt="Ciela Elaine Gutierrez" class="member-image">
+                        <div class="image-placeholder">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <div class="member-role">Candle Bearer</div>
+                        <h3 class="member-name">Ciela Elaine Gutierrez</h3>
+                        <p class="member-relation">Bride's Sister</p>
+                    </div>
+                </div>
+
+                <!-- Cord -->
+                <div class="entourage-card">
+                    <div class="member-image-container">
+                        <img src="./images/cord-elson.jpg" alt="Elson Cedrick Gutierrez" class="member-image">
+                        <div class="image-placeholder">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <div class="member-role">Cord Bearer</div>
+                        <h3 class="member-name">Elson Cedrick Gutierrez</h3>
+                        <p class="member-relation">Bride's Brother</p>
+                    </div>
+                </div>
+
+                <div class="entourage-card">
+                    <div class="member-image-container">
+                        <img src="./images/cord-claire.jpg" alt="Claire Ericka Gutierrez" class="member-image">
+                        <div class="image-placeholder">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <div class="member-role">Cord Bearer</div>
+                        <h3 class="member-name">Claire Ericka Gutierrez</h3>
+                        <p class="member-relation">Bride's Sister</p>
+                    </div>
+                </div>
+
+                <!-- Veil -->
+                <div class="entourage-card">
+                    <div class="member-image-container">
+                        <img src="./images/veil-arian.jpg" alt="Arian Christian Medina" class="member-image">
+                        <div class="image-placeholder">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <div class="member-role">Veil Bearer</div>
+                        <h3 class="member-name">Arian Christian Medina</h3>
+                        <p class="member-relation">Bride's Friend</p>
+                    </div>
+                </div>
+
+                <div class="entourage-card">
+                    <div class="member-image-container">
+                        <img src="./images/veil-jean.jpg" alt="Jean Quinones" class="member-image">
+                        <div class="image-placeholder">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <div class="member-role">Veil Bearer</div>
+                        <h3 class="member-name">Jean Quinones</h3>
+                        <p class="member-relation">Bride's Friend</p>
+                    </div>
+                </div>
+
+                <!-- Coin Bearer -->
+                <div class="entourage-card">
+                    <div class="member-image-container">
+                        <img src="./images/coin-marco.jpg" alt="Marco Antonio Glorioso" class="member-image">
+                        <div class="image-placeholder">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <div class="member-role">Coin Bearer</div>
+                        <h3 class="member-name">Marco Antonio Glorioso</h3>
+                        <p class="member-relation">Groom's Relative</p>
+                    </div>
+                </div>
+
+                <!-- Ring Bearer -->
+                <div class="entourage-card">
+                    <div class="member-image-container">
+                        <img src="./images/ring-roshan.jpg" alt="Roshan Glorioso" class="member-image">
+                        <div class="image-placeholder">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <div class="member-role">Ring Bearer</div>
+                        <h3 class="member-name">Roshan Glorioso</h3>
+                        <p class="member-relation">Groom's Relative</p>
+                    </div>
+                </div>
+
+                <!-- Bible Bearer -->
+                <div class="entourage-card">
+                    <div class="member-image-container">
+                        <img src="./images/bible-lachesi.jpg" alt="Lachesi Jimiela Quiñones" class="member-image">
+                        <div class="image-placeholder">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <div class="member-role">Bible Bearer</div>
+                        <h3 class="member-name">Lachesi Jimiela Quiñones</h3>
+                        <p class="member-relation">Bride's Relative</p>
+                    </div>
+                </div>
+
+                <!-- Flower Girls -->
+                <div class="entourage-card">
+                    <div class="member-image-container">
+                        <img src="./images/flowergirl-levina.jpg" alt="Levina Jorja Quiñones" class="member-image">
+                        <div class="image-placeholder">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <div class="member-role">Flower Girl</div>
+                        <h3 class="member-name">Levina Jorja Quiñones</h3>
+                        <p class="member-relation">Bride's Relative</p>
+                    </div>
+                </div>
+
+                <div class="entourage-card">
+                    <div class="member-image-container">
+                        <img src="./images/flowergirl-ayriell.jpg" alt="Ayriell Maryseph Parado" class="member-image">
+                        <div class="image-placeholder">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <div class="member-role">Flower Girl</div>
+                        <h3 class="member-name">Ayriell Maryseph Parado</h3>
+                        <p class="member-relation">Bride's Niece</p>
+                    </div>
+                </div>
+
+                <div class="entourage-card">
+                    <div class="member-image-container">
+                        <img src="./images/flowergirl-jane.jpg" alt="Jane Castromayor" class="member-image">
+                        <div class="image-placeholder">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <div class="member-role">Flower Girl</div>
+                        <h3 class="member-name">Jane Castromayor</h3>
+                        <p class="member-relation">Groom's Sister</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Principal Sponsors Section -->
+        <section class="entourage-category" id="sponsors">
+            <h2 class="category-title">Principal Sponsors</h2>
+            <div class="entourage-grid-detailed">
+                <!-- Sponsor Couples -->
+                <div class="entourage-card">
+                    <div class="member-image-container">
+                        <img src="./images/sponsors-eddie-loulet.jpg" alt="Mr. Eddie Gutierrez and Mrs. Loulet Parado" class="member-image">
+                        <div class="image-placeholder">
+                            <i class="fas fa-user-friends"></i>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <h3 class="member-name">Mr. Eddie Gutierrez</h3>
+                        <p class="member-relation">and</p>
+                        <h3 class="member-name">Mrs. Loulet Parado</h3>
+                        <p class="member-role">Sponsor Couple</p>
+                    </div>
+                </div>
+
+                <div class="entourage-card">
+                    <div class="member-image-container">
+                        <img src="./images/sponsors-dione-alice.jpg" alt="Mr. Dione Sobrevinas and Mrs. Alice Sobrevinas" class="member-image">
+                        <div class="image-placeholder">
+                            <i class="fas fa-user-friends"></i>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <h3 class="member-name">Mr. Dione Sobrevinas</h3>
+                        <p class="member-relation">and</p>
+                        <h3 class="member-name">Mrs. Alice Sobrevinas</h3>
+                        <p class="member-role">Sponsor Couple</p>
+                    </div>
+                </div>
+
+                <div class="entourage-card">
+                    <div class="member-image-container">
+                        <img src="./images/sponsors-hobert-thess.jpg" alt="Mr. Hobert Orbeta and Mrs. Thess Orbeta" class="member-image">
+                        <div class="image-placeholder">
+                            <i class="fas fa-user-friends"></i>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <h3 class="member-name">Mr. Hobert Orbeta</h3>
+                        <p class="member-relation">and</p>
+                        <h3 class="member-name">Mrs. Thess Orbeta</h3>
+                        <p class="member-role">Sponsor Couple</p>
+                    </div>
+                </div>
+
+                <div class="entourage-card">
+                    <div class="member-image-container">
+                        <img src="./images/sponsors-sotero-lilian.jpg" alt="Mr. Sotero Orbeta Jr. and Ms. Lilian Orbeta" class="member-image">
+                        <div class="image-placeholder">
+                            <i class="fas fa-user-friends"></i>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <h3 class="member-name">Mr. Sotero Orbeta Jr.</h3>
+                        <p class="member-relation">and</p>
+                        <h3 class="member-name">Ms. Lilian Orbeta</h3>
+                        <p class="member-role">Sponsor Couple</p>
+                    </div>
+                </div>
+
+                <div class="entourage-card">
+                    <div class="member-image-container">
+                        <img src="./images/sponsors-percival-marizen.jpg" alt="Mr. Percival Orbeta and Mrs. Marizen Orbeta" class="member-image">
+                        <div class="image-placeholder">
+                            <i class="fas fa-user-friends"></i>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <h3 class="member-name">Mr. Percival Orbeta</h3>
+                        <p class="member-relation">and</p>
+                        <h3 class="member-name">Mrs. Marizen Orbeta</h3>
+                        <p class="member-role">Sponsor Couple</p>
+                    </div>
+                </div>
+
+                <div class="entourage-card">
+                    <div class="member-image-container">
+                        <img src="./images/sponsors-lee-divina.jpg" alt="Mr. Lee Gruspe and Mrs. Divina Gruspe" class="member-image">
+                        <div class="image-placeholder">
+                            <i class="fas fa-user-friends"></i>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <h3 class="member-name">Mr. Lee Gruspe</h3>
+                        <p class="member-relation">and</p>
+                        <h3 class="member-name">Mrs. Divina Gruspe</h3>
+                        <p class="member-role">Sponsor Couple</p>
+                    </div>
+                </div>
+
+                <div class="entourage-card">
+                    <div class="member-image-container">
+                        <img src="./images/sponsors-jose-christina.jpg" alt="Mr. Jose Cabalquinto and Mrs. Christina Cabalquinto" class="member-image">
+                        <div class="image-placeholder">
+                            <i class="fas fa-user-friends"></i>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <h3 class="member-name">Mr. Jose Cabalquinto</h3>
+                        <p class="member-relation">and</p>
+                        <h3 class="member-name">Mrs. Christina Cabalquinto</h3>
+                        <p class="member-role">Sponsor Couple</p>
+                    </div>
+                </div>
+
+                <div class="entourage-card">
+                    <div class="member-image-container">
+                        <img src="./images/sponsors-geraldito-ellen.jpg" alt="Mr. Geraldito Glorioso and Mrs. Ellen Glorioso" class="member-image">
+                        <div class="image-placeholder">
+                            <i class="fas fa-user-friends"></i>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <h3 class="member-name">Mr. Geraldito Glorioso</h3>
+                        <p class="member-relation">and</p>
+                        <h3 class="member-name">Mrs. Ellen Glorioso</h3>
+                        <p class="member-role">Sponsor Couple</p>
+                    </div>
+                </div>
+
+                <div class="entourage-card">
+                    <div class="member-image-container">
+                        <img src="./images/sponsors-erwin-rose.jpg" alt="Mr. Erwin Delmar Ocampo and Mrs. Rose Ocampo" class="member-image">
+                        <div class="image-placeholder">
+                            <i class="fas fa-user-friends"></i>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <h3 class="member-name">Mr. Erwin Delmar Ocampo</h3>
+                        <p class="member-relation">and</p>
+                        <h3 class="member-name">Mrs. Rose Ocampo</h3>
+                        <p class="member-role">Sponsor Couple</p>
+                    </div>
+                </div>
+
+                <div class="entourage-card">
+                    <div class="member-image-container">
+                        <img src="./images/sponsors-edgar-efrelinda.jpg" alt="Mr. Edgar Zuniga and Ms. Efrelinda Glorioso" class="member-image">
+                        <div class="image-placeholder">
+                            <i class="fas fa-user-friends"></i>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <h3 class="member-name">Mr. Edgar Zuniga</h3>
+                        <p class="member-relation">and</p>
+                        <h3 class="member-name">Ms. Efrelinda Glorioso</h3>
+                        <p class="member-role">Sponsor Couple</p>
+                    </div>
+                </div>
+
+                <div class="entourage-card">
+                    <div class="member-image-container">
+                        <img src="./images/sponsors-alberto-josie.jpg" alt="Mr. Alberto Bencion and Mrs. Josie Glorioso" class="member-image">
+                        <div class="image-placeholder">
+                            <i class="fas fa-user-friends"></i>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <h3 class="member-name">Mr. Alberto Bencion</h3>
+                        <p class="member-relation">and</p>
+                        <h3 class="member-name">Mrs. Josie Glorioso</h3>
+                        <p class="member-role">Sponsor Couple</p>
+                    </div>
+                </div>
+
+                <div class="entourage-card">
+                    <div class="member-image-container">
+                        <img src="./images/sponsors-alfie-jeanie.jpg" alt="Mr. Alfie Armac and Mrs. Jeanie Armac" class="member-image">
+                        <div class="image-placeholder">
+                            <i class="fas fa-user-friends"></i>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <h3 class="member-name">Mr. Alfie Armac</h3>
+                        <p class="member-relation">and</p>
+                        <h3 class="member-name">Mrs. Jeanie Armac</h3>
+                        <p class="member-role">Sponsor Couple</p>
+                    </div>
+                </div>
+
+                <div class="entourage-card">
+                    <div class="member-image-container">
+                        <img src="./images/sponsors-isidro-dorie.jpg" alt="Mr. Isidro Glorioso and Mrs. Dorie Glorioso" class="member-image">
+                        <div class="image-placeholder">
+                            <i class="fas fa-user-friends"></i>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <h3 class="member-name">Mr. Isidro Glorioso</h3>
+                        <p class="member-relation">and</p>
+                        <h3 class="member-name">Mrs. Dorie Glorioso</h3>
+                        <p class="member-role">Sponsor Couple</p>
+                    </div>
+                </div>
+
+                <!-- Single Sponsor -->
+                <div class="entourage-card">
+                    <div class="member-image-container">
+                        <img src="./images/sponsor-tess.jpg" alt="Mrs. Tess Gentolia" class="member-image">
+                        <div class="image-placeholder">
+                            <i class="fas fa-user-friends"></i>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <div class="member-role">Sponsor</div>
+                        <h3 class="member-name">Mrs. Tess Gentolia</h3>
+                        <p class="member-relation">Family Friend</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="entourage-footer">
+        <div class="container">
+            <p>#EurishJames02272026</p>
+            <p>Castromayor – Gutierrez Nuptials</p>
+            <a href="index.html" class="btn-rsvp" style="margin-top: 20px;">
+                <i class="fas fa-home"></i> Return to Main Site
+            </a>
+        </div>
+    </footer>
+
+    <script>
+        // Handle anchor links when page loads
+        document.addEventListener('DOMContentLoaded', function () {
+            const hash = window.location.hash;
+            if (hash) {
+                // Wait a bit for the page to fully render
+                setTimeout(function () {
+                    const element = document.querySelector(hash);
+                    if (element) {
+                        const headerHeight = document.querySelector('.entourage-header').offsetHeight;
+                        window.scrollTo({
+                            top: element.offsetTop - headerHeight - 40,
+                            behavior: 'instant' // Use 'instant' instead of 'smooth' for immediate scroll
+                        });
+                    }
+                }, 100); // 100ms delay to ensure page is rendered
+            }
+        });
+
+        // Image error handling
+        document.addEventListener('DOMContentLoaded', function () {
+            const images = document.querySelectorAll('.member-image');
+            images.forEach(img => {
+                // Check if image loaded successfully
+                if (img.complete && img.naturalHeight !== 0) {
+                    // Image loaded successfully
+                    console.log('Image loaded:', img.src);
+                } else {
+                    // Add error event listener
+                    img.addEventListener('error', function () {
+                        console.log('Image failed to load:', this.src);
+                        this.classList.add('error');
+                    });
+
+                    // Also check if image failed to load before event listener was added
+                    img.addEventListener('load', function () {
+                        console.log('Image loaded successfully:', this.src);
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
