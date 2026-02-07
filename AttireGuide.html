@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attire Guide - Eurish & James Wedding</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .attire-guide-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+            background: var(--beige);
+            min-height: 100vh;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--olive);
+            text-decoration: none;
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+
+        .attire-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--gray-green);
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+            .attire-title::after {
+                content: '';
+                position: absolute;
+                bottom: -10px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 80px;
+                height: 3px;
+                background: var(--olive);
+            }
+
+        .attire-subtitle {
+            text-align: center;
+            color: var(--olive);
+            font-size: 1.2rem;
+            margin-bottom: 50px;
+            font-style: italic;
+        }
+
+        .attire-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .attire-category {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border-top: 5px solid var(--olive);
+            transition: transform 0.3s ease;
+        }
+
+            .attire-category:hover {
+                transform: translateY(-5px);
+            }
+
+        .attire-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            color: var(--gray-green);
+        }
+
+            .attire-header i {
+                font-size: 1.8rem;
+                color: var(--olive);
+                background: var(--beige);
+                padding: 12px;
+                border-radius: 50%;
+            }
+
+        .attire-content {
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+            .attire-content p {
+                margin-bottom: 10px;
+            }
+
+        .color-guide {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+            .color-guide h4 {
+                color: var(--gray-green);
+                margin-bottom: 15px;
+                font-size: 1.1rem;
+            }
+
+        .color-swatches {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .example-images {
+            margin-top: 60px;
+        }
+
+            .example-images h3 {
+                text-align: center;
+                color: var(--gray-green);
+                margin-bottom: 30px;
+                font-size: 1.8rem;
+            }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .image-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .image-placeholder {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #f5f1e8 0%, #e8e4d9 100%);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--olive);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .image-item p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .attire-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .attire-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="attire-guide-container">
+        <a href="index.html" class="back-button">
+            <i class="fas fa-arrow-left"></i> Back to Wedding Details
+        </a>
+
+        <h1 class="attire-title">Wedding Attire Guide</h1>
+        <p class="attire-subtitle">Formal Attire Recommendations for Our Special Day</p>
+
+        <div class="attire-grid">
+            <div class="attire-category">
+                <div class="attire-header">
+                    <i class="fas fa-user-tie"></i>
+                    <h3><strong>Ninong</strong></h3>
+                </div>
+
+                <div class="attire-content">
+                    <p><strong>Requirements:</strong></p>
+                    <p>Dark colored coat and tie</p>
+                    <p>Long sleeves</p>
+                    <p>Formal slacks</p>
+                    <p>Leather shoes</p>
+                    <p>Optional: Tie, vest or pocket square</p>
+
+                    <div class="color-guide">
+                        <h4>Recommended Colors:</h4>
+                        <div class="color-swatches">
+                            <div class="color-swatch" style="background: #464f39;"></div>
+                            <div class="color-swatch" style="background: #2c3e50;"></div>
+                            <div class="color-swatch" style="background: #34495e;"></div>
+                            <div class="color-swatch" style="background: #2f3640;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="image-item">
+                    <div class="image-placeholder">
+                        <!--<i class="fas fa-image"></i> Example: Formal Suit-->
+                        <img src="./black-suit.jpg" alt="black-suit" class="qr-image">
+                        <img src="./dark-grey-suit.jpg" alt="dark-grey-suit" class="qr-image">
+                        <!--<img src="./navy-suit.jpg" alt="navy-suit" class="qr-image">-->
+                    </div>
+                    <p>Example: Formal Suit</p>
+                </div>
+            </div>
+
+            <div class="attire-category">
+                <div class="attire-header">
+                    <i class="fas fa-female"></i>
+                    <h3><strong>Ninang & Ladies</strong></h3>
+                </div>
+                <div class="attire-content">
+                    <p><strong>Requirements:</strong></p>
+                    <p>Modest long gown</p>
+                    <p>Formal evening wear</p>
+                    <p>Elegant accessories</p>
+                    <p>Closed-toe or elegant heels</p>
+                    <p>Optional: Shawl or wrap</p>
+
+                    <div class="color-guide">
+                        <h4>Recommended Colors:</h4>
+                        <div class="color-swatches">
+                            <div class="color-swatch" style="background: #898d0b;"></div>
+                            <div class="color-swatch" style="background: #929449;"></div>
+                            <div class="color-swatch" style="background: #8D9E6B;"></div>
+                            <div class="color-swatch" style="background: #a8b98c;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="image-item">
+                    <div class="image-placeholder">
+                        <!--<i class="fas fa-image"></i> Example: Formal Suit-->
+                        <!--<img src="./long-gown.jpg" alt="long-gown" class="qr-image">-->
+                        <img src="./long-gown1.jpg" alt="long-gown1" class="qr-image">
+                        <img src="./long-gown2.jpg" alt="long-gown2" class="qr-image">
+                    </div>
+                    <p>Example: Long Gown</p>
+                </div>
+
+            </div>
+
+            <div class="attire-category">
+                <div class="attire-header">
+                    <i class="fas fa-user-tie"></i>
+                    <h3><strong>Gentlemen</strong></h3>
+                </div>
+
+                <div class="attire-content">
+                    <p><strong>Requirements:</strong></p>
+                    <p>Dark colored long sleeves</p>
+                    <p>Formal slacks</p>
+                    <p>Formal shoes</p>
+                    <p>Optional: Coat and Tie</p>
+
+                    <div class="color-guide">
+                        <h4>Recommended Colors:</h4>
+                        <div class="color-swatches">
+                            <div class="color-swatch" style="background: #464f39;"></div>
+                            <div class="color-swatch" style="background: #2c3e50;"></div>
+                            <div class="color-swatch" style="background: #34495e;"></div>
+                            <div class="color-swatch" style="background: #2f3640;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="image-item">
+                    <div class="image-placeholder">
+                        <!--<i class="fas fa-image"></i> Example: Formal Suit-->
+                        <img src="./long-sleeves.jpg" alt="long-sleeves" class="qr-image">
+                        <img src="./long-sleeves2.jpg" alt="long-sleeves2" class="qr-image">
+                        <!--<img src="./navy-suit.jpg" alt="navy-suit" class="qr-image">-->
+                    </div>
+                    <p>Example: Formal Long Sleeves</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!--<div class="example-images">
+            <h3>Attire Inspiration</h3>
+            <div class="image-grid">
+                <div class="image-item">
+                    <div class="image-placeholder">
+                        <i class="fas fa-image"></i> Example: Formal Suit
+                    </div>
+                    <p>Dark colored suit with tie</p>
+                </div>
+                <div class="image-item">
+                    <div class="image-placeholder">
+                        <i class="fas fa-image"></i> Example: Long Gown
+                    </div>
+                    <p>Elegant evening gown</p>
+                </div>
+                <div class="image-item">
+                    <div class="image-placeholder">
+                        <i class="fas fa-image"></i> Example: Color Palette
+                    </div>
+                    <p>Wedding color scheme</p>
+                </div>
+            </div>
+        </div>-->
+    </div>
+
+    <script>
+        // Smooth scrolling for back button
+        document.querySelector('.back-button').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.history.back();
+        });
+    </script>
+</body>
+</html>
