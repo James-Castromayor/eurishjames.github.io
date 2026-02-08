@@ -111,17 +111,7 @@
                         <!--</a>-->
                     </div>
                 </a>
-            </div>
-        </div>
-    </section>
 
-
-    <section class="important_information" id="information">
-        <div class="container">
-            <h2 class="section-title">Important Information</h2>
-
-            <div class="info-cards">
-                <!--<a href="AttireGuide.html" >-->
                 <div class="info-card">
                     <h4><i class="fas fa-tshirt"></i> Attire</h4>
                     <p><strong>Strictly Formal</strong></p>
@@ -148,7 +138,62 @@
 
                 </div>
 
+                <!--<div class="info-card">
+                    <h4><i class="fa-solid fa-circle-info"></i> Special Reminders</h4>
+                    <p>Weather : February can be quite cool, especially in the evening. We recommend bringing a warmer (jacket, pashmina, or shawl). </p>
+                    <p>Arrival at the Church : As there may be another wedding before ours, arriving closer to the ceremony time is greatly appreciated.</p>
+                    <p>Parking : Ample parking is available in the church and reception venue.</p>
+                    <p>Getting There : For those commuting, the church is conveniently located along the highway. Buses bound for Tagaytay/Nasugbu will pass directly in front of the church.</p>
+                    <p>Accommodations : For those planning to stay overnight, there are several hotels near our venue. For accommodations with a view of Taal Volcano, please expect a scenic 15-minute drive to our location.</p>
+                </div>-->
+
+
                 <div class="info-card">
+                    <h4><i class="fas fa-child"></i> Children Policy</h4>
+                    <p>We absolutely adore your little ones! However, we can only accommodate the children of immediate family and closest friends. We hope you understand, and we can't wait to celebrate with you.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!--<section class="important_information" id="information">
+        <div class="container">
+            <h2 class="section-title">Important Information</h2>
+
+            <div class="info-cards">-->
+    <!--<a href="AttireGuide.html" >-->
+    <!--<div class="info-card">
+        <h4><i class="fas fa-tshirt"></i> Attire</h4>
+        <p><strong>Strictly Formal</strong></p>
+        <p><strong>Ninong:</strong> Dark colored coat, slacks, leather shoes</p>
+        <p><strong>Ninang:</strong> Modest Long gown</p>
+        <p><strong>Gentlemen:</strong> Long sleeves, slacks, formal shoes</p>
+        <p><strong>Ladies:</strong> Modest long gown</p>
+
+        <a href="./AttireGuide.html" class="show-bank-details-btn" style="text-decoration: none;">
+            <i class="fas fa-eye"></i> Click to View Detailed Attire Guide
+        </a>
+    </div>-->
+    <!--</a>-->
+    <!--<div class="info-card">
+        <h4><i class="fas fa-gift"></i> Gift Guide</h4>
+        <p>Your presence is the most meaningful gift we could receive. Should you wish to honor us with a present, a monetary blessing would be truly appreciated.</p>
+
+        <a href="./GiftGuide.html" class="show-bank-details-btn" style="text-decoration: none;">
+            <i class="fas fa-university"></i> View Gift Guide with Bank Details
+        </a>
+
+    </div>-->
+    <!--<div class="info-card">
+        <h4><i class="fa-solid fa-circle-info"></i> Special Reminders</h4>
+        <p>Weather : February can be quite cool, especially in the evening. We recommend bringing a warmer (jacket, pashmina, or shawl). </p>
+        <p>Arrival at the Church : As there may be another wedding before ours, arriving closer to the ceremony time is greatly appreciated.</p>
+        <p>Parking : Ample parking is available in the church and reception venue.</p>
+        <p>Getting There : For those commuting, the church is conveniently located along the highway. Buses bound for Tagaytay/Nasugbu will pass directly in front of the church.</p>
+        <p>Accommodations : For those planning to stay overnight, there are several hotels near our venue. For accommodations with a view of Taal Volcano, please expect a scenic 15-minute drive to our location.</p>
+    </div>-->
+    <!--<div class="info-card">
                     <h4><i class="fas fa-child"></i> Children Policy</h4>
                     <p>We absolutely adore your little ones! However, we can only accommodate the children of immediate family and closest friends. We hope you understand, and we can't wait to celebrate with you.</p>
                 </div>
@@ -157,6 +202,55 @@
             </div>
 
         </div>
+    </section>-->
+
+    <section class="important_information" id="information">
+        <div class="container">
+            <h2 class="section-title"><i class="fa-solid fa-circle-info"></i> Special Reminders</h2>
+            <p><strong>Weather :</strong> February can be quite cool, especially in the evening. We recommend bringing a warmer (jacket, pashmina, or shawl). </p>
+            <p><strong>Arrival at the Church :</strong> As there may be another wedding before ours, arriving closer to the ceremony time is greatly appreciated.</p>
+            <p><strong>Parking :</strong> Ample parking is available in the church and reception venue.</p>
+            <p><strong>Getting There :</strong> For those commuting, the church is conveniently located along the highway. Buses bound for Tagaytay/Nasugbu will pass directly in front of the church.</p>
+            <p><strong>Accommodations :</strong> For those planning to stay overnight, there are several hotels near our venue. For accommodations with a view of Taal Volcano, please expect a scenic 15-minute drive to our location.</p>
+        </div>
+
+
+
+
+    </section>
+
+    <!-- Add this section right after the RSVP section or in the details section -->
+    <section class="confirmation-checker important_information" id="confirmation">
+        <div class="container">
+            <h2 class="section-title">Seat Confirmation</h2>
+            <div class="confirmation-card">
+                <!--<div class="confirmation-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>-->
+                <h3>Confirm Your Seat Reservation</h3>
+                <p>If you're on our guest list, please check your confirmed attendance status below. Your name must appear here to secure your seat at our wedding.</p>
+
+                <div class="search-container">
+                    <input type="text" id="nameSearch" placeholder="Search for your name..." class="search-input">
+                    <button onclick="searchName()" class="search-btn">
+                        <i class="fas fa-search"></i> Search
+                    </button>
+                </div>
+
+                <div class="results-container">
+                    <div id="searchResults" class="search-results">
+                        <!-- Results will appear here -->
+                    </div>
+                    <div id="guestCount" class="guest-count">
+                        <p><i class="fas fa-users"></i> <span id="totalConfirmed">0</span> confirmed guests on our list</p>
+                    </div>
+                </div>
+
+                <div class="confirmation-note">
+                    <p><strong>Note:</strong> If your name doesn't appear but you've submitted an RSVP, please allow 24 hours for processing. For any concerns, kindly contact us directly.</p>
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- In index.html, replace the entire Entourage section with this: -->
@@ -164,7 +258,7 @@
         <div class="container">
             <h2 class="section-title">The Entourage</h2>
             <div class="entourage-preview">
-                <div class="entourage-preview-box" >
+                <div class="entourage-preview-box">
                     <div class="entourage-preview-content">
                         <i class="fas fa-users" style="font-size: 3rem; color: var(--olive); margin-bottom: 20px;"></i>
                         <h3>Meet Our Wedding Party</h3>
