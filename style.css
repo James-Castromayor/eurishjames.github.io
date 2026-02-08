@@ -1272,3 +1272,135 @@ footer {
 		background: #7a7e09;
 		transform: translateY(-2px);
 	}
+
+/* Save the Date Video Section */
+.save-date-section {
+	padding: 80px 20px;
+	background: linear-gradient(135deg, #f8f5f0 0%, #f0ede8 100%);
+	text-align: center;
+}
+
+.video-container {
+	max-width: 900px;
+	margin: 0 auto;
+}
+
+.video-wrapper {
+	position: relative;
+	width: 100%;
+	max-width: 800px;
+	margin: 0 auto 30px;
+	border-radius: 12px;
+	overflow: hidden;
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+	cursor: pointer;
+	transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+	.video-wrapper:hover {
+		transform: translateY(-5px);
+		box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+	}
+
+.video-placeholder {
+	background: linear-gradient(135deg, var(--olive) 0%, var(--olive-light) 100%);
+	height: 450px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+}
+
+.video-preview {
+	text-align: center;
+	color: white;
+	padding: 20px;
+}
+
+.play-button {
+	width: 80px;
+	height: 80px;
+	background: rgba(255, 255, 255, 0.9);
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 0 auto 25px;
+	transition: all 0.3s ease;
+}
+
+.video-wrapper:hover .play-button {
+	transform: scale(1.1);
+	background: white;
+}
+
+.play-button i {
+	font-size: 2.5rem;
+	color: var(--olive);
+	margin-left: 5px;
+}
+
+.video-info h3 {
+	font-family: 'Playfair Display', serif;
+	font-size: 2rem;
+	margin-bottom: 10px;
+	font-weight: 600;
+}
+
+.video-info p {
+	font-family: 'Inter', sans-serif;
+	font-size: 1.1rem;
+	opacity: 0.9;
+}
+
+.video-player {
+	width: 100%;
+	height: 450px;
+	background: #000;
+}
+
+.video-caption {
+	font-family: 'Inter', sans-serif;
+	font-size: 1.1rem;
+	color: var(--text-color);
+	max-width: 600px;
+	margin: 0 auto;
+	line-height: 1.6;
+	font-style: italic;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+	.video-placeholder,
+	.video-player {
+		height: 350px;
+	}
+
+	.play-button {
+		width: 60px;
+		height: 60px;
+	}
+
+		.play-button i {
+			font-size: 2rem;
+		}
+
+	.video-info h3 {
+		font-size: 1.5rem;
+	}
+
+	.video-info p {
+		font-size: 1rem;
+	}
+}
+
+@media (max-width: 480px) {
+	.video-placeholder,
+	.video-player {
+		height: 250px;
+	}
+
+	.save-date-section {
+		padding: 60px 15px;
+	}
+}

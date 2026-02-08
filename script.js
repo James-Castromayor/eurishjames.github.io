@@ -11,10 +11,11 @@ music.volume = 0.3;
 
 // Track if music has been started
 let musicStarted = false;
+let isVideoPlaying = false;
 
 // Function to start music (called on user interaction)
 function startMusic() {
-    if (!musicStarted && music.paused) {
+    if (!musicStarted && music.paused && !isVideoPlaying) {
         musicStarted = true;
         const playPromise = music.play();
 
@@ -53,7 +54,7 @@ document.addEventListener('keydown', startMusic); // For keyboard
 
 // Also try to autoplay immediately (some browsers may allow this)
 setTimeout(() => {
-    if (!musicStarted) {
+    if (!musicStarted && !isVideoPlaying) {
         const playPromise = music.play();
         if (playPromise !== undefined) {
             playPromise.then(_ => {
@@ -74,18 +75,20 @@ setTimeout(() => {
 playBtn.addEventListener('click', function (e) {
     e.stopPropagation(); // Prevent triggering the document click listener
 
-    if (music.paused) {
-        music.play();
-        playIcon.classList.remove('fa-play');
-        playIcon.classList.add('fa-pause');
-        songTitle.textContent = "Playing: Wedding Song";
-        musicStarted = true;
-        removeStartListeners();
-    } else {
-        music.pause();
-        playIcon.classList.remove('fa-pause');
-        playIcon.classList.add('fa-play');
-        songTitle.textContent = "Click to play";
+    if (!isVideoPlaying) {
+        if (music.paused) {
+            music.play();
+            playIcon.classList.remove('fa-play');
+            playIcon.classList.add('fa-pause');
+            songTitle.textContent = "Playing: Wedding Song";
+            musicStarted = true;
+            removeStartListeners();
+        } else {
+            music.pause();
+            playIcon.classList.remove('fa-pause');
+            playIcon.classList.add('fa-play');
+            songTitle.textContent = "Click to play";
+        }
     }
 });
 
@@ -317,16 +320,77 @@ function loadFallbackGuestList() {
         "Treb Cabrera",
         "Lucci Ocampo",
         "Rio Macapanpan",
-        "Efrelinda Glorioso"
+        "Efrelinda Glorioso",
+        "Cherish Gutierrez",
+        "Elson Cedrick Gutierrez",
+        "Archievincent Arthur D. Fetalvero",
+        "CARLO OLIVER VERGARA",
+        "Rolvin Pagunsan",
+        "Hubert Gumboc",
+        "Lachesi Jimiella C. Quiñones",
+        "Jean C. Quiñones",
+        "Jane G. Castromayor",
+        "Jim r castromayor",
+        "Charles Quincy",
+        "Allandale G. Zuñiga",
+        "Mr & Mrs Rose Ocampo",
+        "Joyce Ann Rodil",
+        "Lee Gruspe & Divina Gruspe",
+        "Alvin Kevin R. Glorioso",
+        "Josiephine Glorioso",
+        "Kevin Jan De Leon",
+        "Edgar Zuñiga",
+        "Gabriel James Mangawang Glorioso",
+        "Juanito decio",
+        "Hazel Mayne Orbeta",
+        "Cyrill Elyssa Gutierrez Medina",
+        "Lyndon Bryan De Vera",
+        "Mr & Mrs John De Leon",
+        "Rhodora G. Castromayor",
+        "Nathaniel Paul F. Bunag",
+        "Jim II Castromayor",
+        "Arian Christian Medina",
+        "Sherry Mae Battulayan",
+        "Alyanna Sobrevinas",
+        "Alissandra Sobrevinas",
+        "Alyssa Daye Sobrevinas",
+        "Sotero Terry Orbeta Jr",
+        "Alicia O. Sobrevinas",
+        "Domingo V. Sobrevinas",
+        "Paulina Lilian R. Orbeta",
+        "Marizen M. Orbeta",
+        "Alyanna Donne O. Sobrevinas",
+        "Alissandra Daen O. Sobrevinas",
+        "Katherine Vipinosa",
+        "Ciela Elaine Gutierrez",
+        "Pauline San Juan",
+        "JANETH POSO",
+        "Angelica Pagunsan",
+        "Anna Marie Zamora",
+        "Levi P. Quiñones & Jean C. Quiñones",
+        "Levi P. Quiñones",
+        "Lachesi Jimiella C. Quiñones",
+        "Leviña Jorja C. Quiñones",
+        "Charles Quincy Dayrit",
+        "Marian Danica Borillo-Lim",
+        "Reena Cayton",
+        "Frances Rose Y. Zuñiga",
+        "Marco Antonio Glorioso",
+        "Jameer Antonio Glorioso",
+        "Christopher Ocampo",
+        "Maryneth De Leon",
+        "Glenndale Zuñiga",
+        "Marites Orbeta",
+        "Hobert Bartolome Orbeta",
+        "Henessy Mae Orbeta",
+        "Harvey Troy Orbeta",
+        "Hilary Marj Orbeta",
+        "John De Leon & Cess De Leon"
     ];
     console.log('Fallback list loaded with', guestList.length, 'guests');
     document.getElementById('totalConfirmed').textContent = guestList.length;
 
-    // Update display
-    const searchInput = document.getElementById('nameSearch');
-    if (!searchInput || searchInput.value.trim() === '') {
-        displayAllGuests();
-    }
+    displayAllGuests();
 }
 
 // Display all guests in the results container
@@ -349,16 +413,13 @@ function displayAllGuests() {
         return;
     }
 
-    // Display all guests without sorting (preserve order from file)
-    guestList.forEach(guest => {
-        const resultItem = document.createElement('div');
-        resultItem.className = 'result-item';
-        resultItem.innerHTML = `
-            <i class="fas fa-user"></i>
-            <span>${guest}</span>
-        `;
-        resultsContainer.appendChild(resultItem);
-    });
+    // Show a message instead of the full list
+    resultsContainer.innerHTML = `
+        <div class="result-item">
+            <i class="fas fa-search"></i>
+            <span>Enter a name in the search box above to check if you're on the guest list.</span>
+        </div>
+    `;
 }
 
 function searchName() {
@@ -383,7 +444,13 @@ function searchName() {
     resultsContainer.innerHTML = '';
 
     if (searchTerm === '') {
-        displayAllGuests();
+        // Show instructions when search is empty
+        resultsContainer.innerHTML = `
+            <div class="result-item">
+                <i class="fas fa-search"></i>
+                <span>Enter a name in the search box above to check if you're on the guest list.</span>
+            </div>
+        `;
         return;
     }
 
@@ -397,7 +464,7 @@ function searchName() {
         return;
     }
 
-    // Simple test - just log what we find
+    // Search for matches
     const matches = [];
     for (let i = 0; i < guestList.length; i++) {
         const guest = guestList[i];
@@ -413,7 +480,7 @@ function searchName() {
         resultsContainer.innerHTML = `
             <div class="result-item">
                 <i class="fas fa-user-times"></i>
-                <span>No matching names found for "${searchInput.value}".</span>
+                <span>No matching names found for "${searchInput.value}". Please check your spelling or contact the couple directly.</span>
             </div>
         `;
     } else {
@@ -432,23 +499,96 @@ function searchName() {
             resultItem.className = 'result-item found';
             resultItem.innerHTML = `
                 <i class="fas fa-user-check"></i>
-                <span><strong>${guest}</strong> - Confirmed ✓</span>
+                <span><strong>${guest}</strong> - Confirmed on guest list ✓</span>
             `;
             resultsContainer.appendChild(resultItem);
         });
     }
 }
 
-// Initialize when the page loads
-document.addEventListener('DOMContentLoaded', function () {
-    console.log('DOM loaded, initializing...');
+// Video Player Functionality
+function initVideoPlayer() {
+    const videoPlaceholder = document.getElementById('videoPlaceholder');
+    const saveDateVideo = document.getElementById('saveDateVideo');
 
-    // Initialize guest list immediately
-    initializeGuestList();
+    if (videoPlaceholder && saveDateVideo) {
+        videoPlaceholder.addEventListener('click', function () {
+            // Hide placeholder and show video
+            videoPlaceholder.style.display = 'none';
+            saveDateVideo.style.display = 'block';
 
-    // Add Enter key support for search
+            // Pause the background music if it's playing
+            if (!music.paused) {
+                music.pause();
+                playIcon.classList.remove('fa-pause');
+                playIcon.classList.add('fa-play');
+                songTitle.textContent = "Music paused - video playing";
+            }
+
+            // Set video playing flag
+            isVideoPlaying = true;
+
+            // Play the video
+            saveDateVideo.play().catch(error => {
+                console.log('Video playback failed:', error);
+                // If auto-play fails, show video with controls
+                saveDateVideo.style.display = 'block';
+                isVideoPlaying = false;
+            });
+        });
+
+        // When video ends
+        saveDateVideo.addEventListener('ended', function () {
+            saveDateVideo.style.display = 'none';
+            videoPlaceholder.style.display = 'block';
+            isVideoPlaying = false;
+
+            // Resume music if it was playing before
+            if (musicStarted && !music.paused) {
+                music.play();
+                playIcon.classList.remove('fa-play');
+                playIcon.classList.add('fa-pause');
+                songTitle.textContent = "Playing: Wedding Song";
+            }
+        });
+
+        // When video is paused by user
+        saveDateVideo.addEventListener('pause', function () {
+            isVideoPlaying = false;
+            // Don't auto-resume music here - let user decide
+        });
+
+        // When video is played by user
+        saveDateVideo.addEventListener('play', function () {
+            isVideoPlaying = true;
+            // Pause music when video plays
+            if (!music.paused) {
+                music.pause();
+                playIcon.classList.remove('fa-pause');
+                playIcon.classList.add('fa-play');
+                songTitle.textContent = "Music paused - video playing";
+            }
+        });
+
+        // Optional: Add click on video to pause
+        saveDateVideo.addEventListener('click', function (e) {
+            e.stopPropagation(); // Prevent triggering parent click
+            if (!saveDateVideo.paused) {
+                saveDateVideo.pause();
+                isVideoPlaying = false;
+            } else {
+                saveDateVideo.play();
+                isVideoPlaying = true;
+            }
+        });
+    }
+}
+
+// Initialize search functionality
+function initSearchFunctionality() {
     const searchInput = document.getElementById('nameSearch');
     if (searchInput) {
+        // Add Enter key support for search
         searchInput.addEventListener('keypress', function (e) {
             if (e.key === 'Enter') {
                 searchName();
@@ -457,43 +597,68 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Add real-time search
         searchInput.addEventListener('input', function () {
-            // Only search if there's a term
-            if (this.value.trim() !== '') {
+            const searchTerm = this.value.trim();
+
+            if (searchTerm === '') {
+                // Show instructions when input is cleared
+                const resultsContainer = document.getElementById('searchResults');
+                if (resultsContainer) {
+                    resultsContainer.innerHTML = `
+                    <div class="result-item">
+                        <i class="fas fa-search"></i>
+                        <span>Enter a name in the search box above to check if you're on the guest list.</span>
+                    </div>
+                `;
+                }
+            } else {
+                // Only search if there's a term
                 searchName();
-            } else {
+            }
+        });
+
+        // Add clear button to search
+        const searchContainer = document.querySelector('.search-container');
+        if (searchContainer) {
+            // Create clear button
+            const clearButton = document.createElement('button');
+            clearButton.type = 'button';
+            clearButton.innerHTML = '<i class="fas fa-times"></i>';
+            clearButton.className = 'clear-btn';
+            clearButton.style.display = 'none';
+            clearButton.onclick = function () {
+                searchInput.value = '';
+                searchInput.focus();
                 displayAllGuests();
-            }
-        });
+                this.style.display = 'none';
+            };
+
+            // Add clear button to search container
+            searchContainer.appendChild(clearButton);
+
+            // Show/hide clear button based on input
+            searchInput.addEventListener('input', function () {
+                if (this.value.trim() !== '') {
+                    clearButton.style.display = 'flex';
+                } else {
+                    clearButton.style.display = 'none';
+                }
+            });
+        }
     }
+}
 
-    // Add clear button to search
-    const searchContainer = document.querySelector('.search-container');
-    if (searchContainer && searchInput) {
-        // Create clear button
-        const clearButton = document.createElement('button');
-        clearButton.type = 'button';
-        clearButton.innerHTML = '<i class="fas fa-times"></i>';
-        clearButton.className = 'clear-btn';
-        clearButton.style.display = 'none';
-        clearButton.onclick = function () {
-            searchInput.value = '';
-            searchInput.focus();
-            displayAllGuests();
-            this.style.display = 'none';
-        };
+// Initialize when the page loads
+document.addEventListener('DOMContentLoaded', function () {
+    console.log('DOM loaded, initializing...');
 
-        // Add clear button to search container
-        searchContainer.appendChild(clearButton);
+    // Initialize guest list
+    initializeGuestList();
 
-        // Show/hide clear button based on input
-        searchInput.addEventListener('input', function () {
-            if (this.value.trim() !== '') {
-                clearButton.style.display = 'flex';
-            } else {
-                clearButton.style.display = 'none';
-            }
-        });
-    }
+    // Initialize video player
+    initVideoPlayer();
+
+    // Initialize search functionality
+    initSearchFunctionality();
 
     console.log('Initialization complete');
 });
@@ -506,4 +671,7 @@ window.addEventListener('load', function () {
         console.log('Guest list empty on window load, reinitializing...');
         initializeGuestList();
     }
+
+    // Make sure video player is initialized
+    initVideoPlayer();
 });
