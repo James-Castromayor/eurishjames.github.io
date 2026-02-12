@@ -318,7 +318,7 @@ function loadFallbackGuestList() {
         "Lachesi Jimiella C. Quiñones",
         "Jean C. Quiñones",
         "Jane G. Castromayor",
-        "Jim r castromayor",y
+        "Jim r castromayor",
         "Allandale G. Zuñiga",
         "Mr & Mrs Rose Ocampo",
         "Joyce Ann Rodil",
